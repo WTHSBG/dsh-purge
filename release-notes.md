@@ -1,3 +1,17 @@
+# 1.1.81
+
+## 中文
+
+- 版本 **1.1.81**。修复 bug：符号链接安装时 postinstall 静默不执行。
+- `scripts/ensure-profile-bundle.mjs` 的入口判定比较 `argv[1]` 与 `import.meta.url`，但 Node 会把后者解析成真实路径，软链安装时两者永远不等，`main()` 从不运行。表现是 `pnpm add <本地路径>` / `pnpm link` / workspace link 装完后 `dsh.profile.bundles` 和用户层 `cordis.patch.yml` 的 insert 都没写，宿主里插件不生效，且没有任何报错。改按 `realpath` 比较。
+- 正常 tarball / registry 安装不受影响。
+
+## English
+
+- **1.1.81**. Fix: postinstall silently did nothing when installed through a symlink.
+- The entrypoint check in `scripts/ensure-profile-bundle.mjs` compared `argv[1]` against `import.meta.url`, but Node resolves the latter to the real path — under a symlinked install the two never match, so `main()` never ran. Symptom: after `pnpm add <local-path>` / `pnpm link` / workspace link, neither `dsh.profile.bundles` nor the user-layer `cordis.patch.yml` insert got written, the plugin stayed inert in the host, and nothing errored. Now compared via `realpath`.
+- Regular tarball / registry installs are unaffected.
+
 # 1.1.80
 
 ## 中文
