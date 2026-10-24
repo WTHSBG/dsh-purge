@@ -192,14 +192,14 @@ dsh-purge --uninstall
 
 ## 更新
 
-重新执行安装命令即可（本 fork 跟随 `dev` 分支）：
+面板里的「检查更新 / 切换版本」已指向本 fork（`WTHSBG/dsh-purge` 的 `dev` 分支），可以直接用；也可以重新执行安装命令或 `git pull`：
 
 ```sh
 dsh plugin --profile web add https://codeload.github.com/WTHSBG/dsh-purge/tar.gz/refs/heads/dev
 ```
 
-> ⚠️ 面板里的「检查更新 / 切换到正式版」目前仍指向上游仓库（`YuJunZhiXue/dsh-purge` master），
-> 会拉回含演练台的旧版本，本 fork 用户不要使用；更新请用上面的命令或 `git pull`。
+- 本 fork 没有 `beta` 分支，面板的「测试版」通道会显示「无测试版」；
+- 面板不再列出上游历史 tag / 旧版本，避免误切回含演练台的旧构建。
 
 ## 路径探测
 

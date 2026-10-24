@@ -230,15 +230,17 @@ dsh-purge --uninstall
 
 ## Update
 
-Re-run the install command; this fork tracks the `dev` branch:
+The in-panel "Check for updates / Switch version" now points at this fork
+(`WTHSBG/dsh-purge`, `dev` branch) and is safe to use; you can also re-run the install command or
+`git pull`:
 
 ```sh
 dsh plugin --profile web add https://codeload.github.com/WTHSBG/dsh-purge/tar.gz/refs/heads/dev
 ```
 
-> ⚠️ The in-panel "Check for updates / Switch to stable" still points at the upstream repository
-> (`YuJunZhiXue/dsh-purge` master) and would pull the old build that contains the drill console.
-> Do not use it in this fork; update with the command above or `git pull`.
+- This fork has no `beta` branch; the "Beta" channel in the panel shows "No beta build".
+- The panel no longer lists upstream historical tags / old versions, so it cannot switch back to a
+  build that still contains the drill console.
 
 ## Path detection
 
