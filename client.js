@@ -1,4 +1,4 @@
-window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
+window.__ModuleLoader__.load({ id: "dsh-stan", factory: (require) => {
 
 		var module = { exports: {} };
 		var exports = module.exports;
@@ -7,9 +7,9 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 		const h = react.createElement;
 		const { useState, useEffect, useCallback, useRef, Component } = react;
 
-		const name = "dsh-purge";
+		const name = "dsh-stan";
 		const inject = ["slots", "locale", "uiConversation"];
-		const NS = "settings.dsh-purge";
+		const NS = "settings.dsh-stan";
 		let translate = (key) => key;
 		function useT() {
 			return translate;
@@ -43,14 +43,14 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 		function apiTimeoutMs(p, init) {
 			const path = String(p || "");
 			const method = String((init && init.method) || "GET").toUpperCase();
-			if (path.indexOf("/dsh-purge/update") !== -1) return method === "POST" ? 180000 : 45000;
-			if (path.indexOf("/dsh-purge/uninstall") !== -1) return 90000;
-			if (path.indexOf("/dsh-purge/skill") !== -1) return method === "POST" ? 120000 : 20000;
+			if (path.indexOf("/dsh-stan/update") !== -1) return method === "POST" ? 180000 : 45000;
+			if (path.indexOf("/dsh-stan/uninstall") !== -1) return 90000;
+			if (path.indexOf("/dsh-stan/skill") !== -1) return method === "POST" ? 120000 : 20000;
 			// status 会在"应用"期间被后端的同步落盘阻塞，默认 20s 必然被 abort，界面只会显示"读取失败: timeout"。
-			if (path.indexOf("/dsh-purge/status") !== -1) return 60000;
-			if (path.indexOf("/dsh-purge/apply") !== -1) return 240000;
-			if (path.indexOf("/dsh-purge/revert") !== -1) return 120000;
-			if (path.indexOf("/dsh-purge/restart") !== -1) return 60000;
+			if (path.indexOf("/dsh-stan/status") !== -1) return 60000;
+			if (path.indexOf("/dsh-stan/apply") !== -1) return 240000;
+			if (path.indexOf("/dsh-stan/revert") !== -1) return 120000;
+			if (path.indexOf("/dsh-stan/restart") !== -1) return 60000;
 			return 20000;
 		}
 		function isAbortError(e) {
@@ -100,7 +100,7 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 		}
 
 		function rulesApi(op, extra) {
-			return apiJson("/dsh-purge/rules", {
+			return apiJson("/dsh-stan/rules", {
 				method: "POST",
 				headers: { "content-type": "application/json" },
 				body: JSON.stringify(Object.assign({ op: op }, extra || {})),
@@ -117,9 +117,9 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 				headers: { "content-type": "application/json" },
 				body: JSON.stringify(Object.assign({ op: op }, extra || {})),
 			};
-			return apiJson("/dsh-purge/skills", init).catch((e) => {
+			return apiJson("/dsh-stan/skills", init).catch((e) => {
 				if (!skillsRouteMissing(e)) throw e;
-				return apiJson("/dsh-purge/skill", init);
+				return apiJson("/dsh-stan/skill", init);
 			});
 		}
 
@@ -128,15 +128,15 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 		const zh = {
 			nav: "规则设定",
 			"dock.clean": "清洗",
-			"dock.toggle": "dsh-purge",
-			"dock.newSession": "dsh-purge",
-			"dock.inSession": "dsh-purge",
+			"dock.toggle": "dsh-stan",
+			"dock.newSession": "dsh-stan",
+			"dock.inSession": "dsh-stan",
 			"dock.close": "收起",
 			"welcome.title": "用户须知",
 			"welcome.lead": "首次安装本插件时请阅读以下说明。确认后本窗不再弹出。",
 			"welcome.warn": "本插件免费开源。任何背着作者私自售卖、付费倒卖或借本项目盈利的行为，作者将依法追究法律责任。",
-			"welcome.body": "dsh-purge 是 DeepSeek Harness 的本机提示词与补丁清洗插件：在受控本机环境中调整提示词与补丁。项目免费、非营利，源码仓库：",
-			"welcome.repo": "https://github.com/YuJunZhiXue/dsh-purge",
+			"welcome.body": "dsh-stan 是 DeepSeek Harness 的本机提示词与补丁清洗插件：在受控本机环境中调整提示词与补丁。项目免费、非营利，源码仓库：",
+			"welcome.repo": "https://github.com/WTHSBG/dsh-stan",
 			"welcome.ban1": "禁止将本项目用于未授权的网络攻击、入侵、窃取数据、破坏系统或任何违法犯罪。",
 			"welcome.ban2": "禁止商业售卖、付费倒卖、黑灰产牟利，以及隐瞒作者的营利性再分发。",
 			"welcome.ban3": "使用者须自行遵守所在地法律法规与平台规范；违法后果由行为人自行承担，与作者无关。",
@@ -183,7 +183,7 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 			"btn.revert": "还原",
 			"btn.uninstall": "卸载",
 			"btn.uninstall.busy": "卸载中…",
-			"uninstall.title": "卸载 dsh-purge",
+			"uninstall.title": "卸载 dsh-stan",
 			"uninstall.body": "是否卸载？卸载将还原回原版，并清除本插件的全部文件与补丁。",
 			"uninstall.confirm": "确认卸载",
 			"uninstall.cancel": "取消",
@@ -345,7 +345,7 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 			"patch.24": "preset fetch 启用",
 			"patch.25": "去掉官方默认身份（功能提示词不动）",
 			"patch.26": "minimal：去掉默认身份并打开 inject",
-			"patch.28": "dsh-liangshen（梁神）：phase-1 保留 dsh-purge / dshpg 段",
+			"patch.28": "dsh-liangshen（梁神）：phase-1 保留 dsh-purge / dshpg 段（段名契约，不随品牌改）",
 			"patch.70": "极简模式终端不再禁止网络",
 			"patch.71": "梁神去掉官方身份句",
 			"patch.29": "dsh-tool-web：外部 untrusted 拦截→可执行",
@@ -441,15 +441,15 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 		const en = {
 			nav: "Rules",
 			"dock.clean": "Clean",
-			"dock.toggle": "dsh-purge",
-			"dock.newSession": "dsh-purge",
-			"dock.inSession": "dsh-purge",
+			"dock.toggle": "dsh-stan",
+			"dock.newSession": "dsh-stan",
+			"dock.inSession": "dsh-stan",
 			"dock.close": "Collapse",
 			"welcome.title": "User notice",
 			"welcome.lead": "Please read this on first install. After you confirm, it will not appear again.",
 			"welcome.warn": "This plugin is free and open source. Anyone who sells, resells, or profits from it behind the author's back may face legal action.",
-			"welcome.body": "dsh-purge is a local DeepSeek Harness plugin for security evaluation and cleaning: adjust prompts and patches on a machine you control. It is free and non-profit. Repository:",
-			"welcome.repo": "https://github.com/YuJunZhiXue/dsh-purge",
+			"welcome.body": "dsh-stan is a local DeepSeek Harness plugin for security evaluation and cleaning: adjust prompts and patches on a machine you control. It is free and non-profit. Repository:",
+			"welcome.repo": "https://github.com/WTHSBG/dsh-stan",
 			"welcome.ban1": "Do not use this project for unauthorized attacks, intrusion, data theft, sabotage, or any illegal activity.",
 			"welcome.ban2": "Do not commercially sell, resell, or profit from gray-market use, or redistribute for profit without the author.",
 			"welcome.ban3": "You must follow local law and platform rules; illegal use is solely your responsibility.",
@@ -496,7 +496,7 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 			"btn.revert": "Restore",
 			"btn.uninstall": "Uninstall",
 			"btn.uninstall.busy": "Uninstalling…",
-			"uninstall.title": "Uninstall dsh-purge",
+			"uninstall.title": "Uninstall dsh-stan",
 			"uninstall.body": "Uninstall? This restores the original Harness and removes this plugin completely.",
 			"uninstall.confirm": "Uninstall",
 			"uninstall.cancel": "Cancel",
@@ -1133,7 +1133,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 			const [busy, setBusy] = useState(false);
 
 			useEffect(() => {
-				apiJson("/dsh-purge/hooks-deny")
+				apiJson("/dsh-stan/hooks-deny")
 					.then((d) => { if (d && d.ok) setCfg({ hooksDenyBypass: d.hooksDenyBypass !== false }); })
 					.catch(() => {});
 			}, []);
@@ -1142,7 +1142,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 				if (!cfg || busy) return;
 				setCfg({ hooksDenyBypass });
 				setBusy(true);
-				apiJson("/dsh-purge/hooks-deny", {
+				apiJson("/dsh-stan/hooks-deny", {
 					method: "POST",
 					headers: { "content-type": "application/json" },
 					body: JSON.stringify({ hooksDenyBypass }),
@@ -1188,7 +1188,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 			const [busy, setBusy] = useState(false);
 
 			useEffect(() => {
-				apiJson("/dsh-purge/continue/settings")
+				apiJson("/dsh-stan/continue/settings")
 					.then((d) => { if (d && d.ok) setCfg(d); })
 					.catch(() => {});
 			}, []);
@@ -1200,7 +1200,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 				if (next.autoContinue && !(Number(next.continueMax) > 0)) next.continueMax = 3;
 				setCfg(next);
 				setBusy(true);
-				apiJson("/dsh-purge/continue/settings", {
+				apiJson("/dsh-stan/continue/settings", {
 					method: "POST",
 					headers: { "content-type": "application/json" },
 					body: JSON.stringify(next),
@@ -1391,7 +1391,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 				setUpdateJob({ id: id || "", kind: "check" });
 				const tr = tRef.current;
 				setUpdateNotice({ kind: "ok", text: tr("update.checking") });
-				apiJson("/dsh-purge/update")
+				apiJson("/dsh-stan/update")
 					.then((d) => {
 						if (!d || (!d.ok && !d.channel)) throw new Error((d && d.error) || "check failed");
 						applyUpdateInfo(d, tr, "check");
@@ -1408,7 +1408,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 				setUpdateJob({ id: id || "", kind });
 				const tr = tRef.current;
 				setUpdateNotice({ kind: "ok", text: kind === "switched" || kind === "channel" ? tr("update.switching") : tr("update.applying") });
-				return apiJson("/dsh-purge/update", {
+				return apiJson("/dsh-stan/update", {
 					method: "POST",
 					headers: { "content-type": "application/json" },
 					body: JSON.stringify(body || {}),
@@ -1487,7 +1487,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 
 			const loadAll = useCallback(() => {
 				const tr = tRef.current;
-				apiJson("/dsh-purge/status")
+				apiJson("/dsh-stan/status")
 					.then((d) => {
 						if (d && d.ok) {
 							setState(d);
@@ -1503,7 +1503,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 						setState({ ok: false, patches_total: 0, patches_applied: 0, patch_status: {}, shim_cmd: "n/a", shim_ps1: "n/a", shim_bin: "n/a", has_backup: false });
 						setNotice({ kind: "error", text: tr("err.status", { error: e.message }) });
 					});
-				apiJson("/dsh-purge/update")
+				apiJson("/dsh-stan/update")
 					.then((d) => {
 						if (!d) return;
 						if (d.channel) setChannel(d.channel);
@@ -1511,7 +1511,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 						syncPicks(d);
 					})
 					.catch(() => {});
-				apiJson("/dsh-purge/override")
+				apiJson("/dsh-stan/override")
 					.then((d) => {
 						if (d && d.ok) {
 							const packed = typeof d.defaultContent === "string" ? d.defaultContent : "";
@@ -1549,7 +1549,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 					setAskRestart(false);
 					setNotice({ kind: "idle", text: "" });
 					const applyContent = action === "apply" ? readPromptBox() : "";
-					fetch("/dsh-purge/" + action, {
+					fetch("/dsh-stan/" + action, {
 						method: "POST",
 						headers: { "content-type": "application/json" },
 						body: JSON.stringify(action === "apply" ? { content: applyContent } : {}),
@@ -1634,7 +1634,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 					setAskRestart(false);
 					setNotice({ kind: "idle", text: "" });
 					const content = readPromptBox();
-					fetch("/dsh-purge/override", {
+					fetch("/dsh-stan/override", {
 						method: "POST",
 						headers: { "content-type": "application/json" },
 						body: JSON.stringify({ content: content }),
@@ -1679,7 +1679,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 				setOverride(defaultOverride);
 				setPatchBusy(true);
 				setNotice({ kind: "idle", text: "" });
-				apiJson("/dsh-purge/override", {
+				apiJson("/dsh-stan/override", {
 					method: "POST",
 					headers: { "content-type": "application/json" },
 					body: JSON.stringify({ content: defaultOverride }),
@@ -1740,7 +1740,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 				setAskRestart(false);
 				const tr = tRef.current;
 				setNotice({ kind: "ok", text: tr("uninstall.applying") });
-				apiJson("/dsh-purge/uninstall", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" })
+				apiJson("/dsh-stan/uninstall", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" })
 					.then((d) => {
 						if (!d || !d.ok) throw new Error((d && d.error) || "uninstall failed");
 						setNotice({ kind: "ok", text: (d && d.note) || hostText(tr, "uninstall.done", d.surface || hostSurfaceOf(state)) });
@@ -2323,7 +2323,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 					if (d && d.ok) setSt({ ok: true, skills: d.skills || [] });
 					else fail({ message: (d && d.error) || "bad response" });
 				};
-				apiJson("/dsh-purge/status")
+				apiJson("/dsh-stan/status")
 					.then((d) => {
 						const allowed = skillUiAllowed(d);
 						setOnBeta(allowed);
@@ -2595,7 +2595,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 			// 必须先看到旧进程掉线，再等新进程就绪；否则同进程立刻 200 会被当成「重启成功」又弹重启。
 			let sawDown = false;
 			const ping = () => {
-				fetch("/dsh-purge/status", { cache: "no-store", credentials: "same-origin" })
+				fetch("/dsh-stan/status", { cache: "no-store", credentials: "same-origin" })
 					.then((r) => (r.ok ? r.json() : Promise.reject()))
 					.then((d) => {
 						if (!sawDown) {
@@ -2640,7 +2640,7 @@ body:not([data-ds-dark-theme]) .dshp-welcome-ops button.primary{background:var(-
 				if (sawDrop) return;
 				stop("");
 			}, 25000);
-			fetch("/dsh-purge/restart", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" })
+			fetch("/dsh-stan/restart", { method: "POST", headers: { "content-type": "application/json" }, body: "{}" })
 				.then((r) => r.json())
 				.then((d) => {
 					if (!d.ok) throw new Error(d.error || "restart failed");
@@ -2958,7 +2958,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 				clearStoredDraft(sessionId);
 				stopped = true;
 			};
-			apiJson("/dsh-purge/last-user?sessionId=" + encodeURIComponent(sessionId)).then((data) => {
+			apiJson("/dsh-stan/last-user?sessionId=" + encodeURIComponent(sessionId)).then((data) => {
 				if (stopped) return;
 				last = String(data?.text || "").trim();
 				if (!last || isPluginDraft(last)) return;
@@ -3025,7 +3025,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 		class RewindSafe extends Component {
 			constructor(p) { super(p); this.state = { failed: false }; }
 			static getDerivedStateFromError() { return { failed: true }; }
-			componentDidCatch(error) { try { console.error("[dsh-purge] rewind slot:", error); } catch { /* ignore */ } }
+			componentDidCatch(error) { try { console.error("[dsh-stan] rewind slot:", error); } catch { /* ignore */ } }
 			render() {
 				if (this.state.failed) return h(RewindFallback, this.props);
 				return h(RewindButton, this.props);
@@ -3035,7 +3035,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 		class ContinueSafe extends Component {
 			constructor(p) { super(p); this.state = { failed: false }; }
 			static getDerivedStateFromError() { return { failed: true }; }
-			componentDidCatch(error) { try { console.error("[dsh-purge] continue slot:", error); } catch { /* ignore */ } }
+			componentDidCatch(error) { try { console.error("[dsh-stan] continue slot:", error); } catch { /* ignore */ } }
 			render() {
 				if (this.state.failed) {
 					return h("button", {
@@ -3047,7 +3047,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 							const sessionId = currentSessionId(rewindSessions);
 							if (!sessionId) return;
 							try {
-								const data = await apiJson("/dsh-purge/continue", {
+								const data = await apiJson("/dsh-stan/continue", {
 									method: "POST",
 									headers: { "content-type": "application/json" },
 									body: JSON.stringify({ sessionId, force: true }),
@@ -3078,7 +3078,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 				}
 				let cancelled = false;
 				const tick = () => {
-					apiJson("/dsh-purge/continue?sessionId=" + encodeURIComponent(sessionId))
+					apiJson("/dsh-stan/continue?sessionId=" + encodeURIComponent(sessionId))
 						.then((data) => { if (!cancelled && data && data.ok) setInfo(data); })
 						.catch(() => {});
 				};
@@ -3097,7 +3097,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 				setBusy(true);
 				setNotice("");
 				try {
-					const data = await apiJson("/dsh-purge/continue", {
+					const data = await apiJson("/dsh-stan/continue", {
 						method: "POST",
 						headers: { "content-type": "application/json" },
 						body: JSON.stringify({ sessionId }),
@@ -3197,7 +3197,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 				const sessionId = this.props.sessionId || currentSessionId(rewindSessions);
 				if (!sessionId || this.state.busy) return;
 				this.setState({ busy: true, menu: false, notice: "" });
-				apiJson("/dsh-purge/rewind", {
+				apiJson("/dsh-stan/rewind", {
 					method: "POST",
 					headers: { "content-type": "application/json" },
 					body: JSON.stringify({ sessionId, mode }),
@@ -3283,7 +3283,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 				setMenu(false);
 				setNotice("");
 				try {
-					const data = await apiJson("/dsh-purge/rewind", {
+					const data = await apiJson("/dsh-stan/rewind", {
 						method: "POST",
 						headers: { "content-type": "application/json" },
 						body: JSON.stringify({ sessionId, mode }),
@@ -3359,7 +3359,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 			if (!sessions) return () => {};
 			const tick = async () => {
 				try {
-					const data = await apiJson("/dsh-purge/rewind");
+					const data = await apiJson("/dsh-stan/rewind");
 					if (!data || !data.sessionId || !data.at || data.at <= rewindSeenAt) return;
 					rewindSeenAt = data.at;
 					const current = currentSessionId(sessions);
@@ -3667,7 +3667,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 				},
 			},
 				h("div", { className: "dshp-dock-head", onMouseDown: startDrag, title: "Drag to move the panel" },
-					h("b", null, "dsh-purge"),
+					h("b", null, "dsh-stan"),
 					h("span", { style: { flex: 1 } }),
 					h("button", { type: "button", onClick: () => setDock({ open: false }) }, t("dock.close")),
 				),
@@ -3695,7 +3695,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 				const el = nodes[i];
 				if (!el || el.classList.contains("dshp-launch")) continue;
 				if (el.closest && el.closest(".dshp-dock, .dshp-launch")) continue;
-				if (String(el.textContent || "").trim() === "dsh-purge") return true;
+				if (String(el.textContent || "").trim() === "dsh-stan") return true;
 			}
 			return false;
 		}
@@ -3729,7 +3729,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 			}, t("dock.newSession"));
 		}
 
-		/** 首页：模式旁挂「dsh-purge」→ 打开插件。 */
+		/** 首页：模式旁挂「dsh-stan」→ 打开插件。 */
 		function HeroNewSessionMount() {
 			const t = useT();
 			const st = useDock();
@@ -3748,7 +3748,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 					if (!row) {
 						if (!warnedMiss) {
 							warnedMiss = true;
-							try { console.warn("[dsh-purge] HeroNewSessionMount: anchor row missing (the host may have changed)"); } catch { /* ignore */ }
+							try { console.warn("[dsh-stan] HeroNewSessionMount: anchor row missing (the host may have changed)"); } catch { /* ignore */ }
 						}
 						setHost((prev) => (prev ? null : prev));
 						return;
@@ -3813,7 +3813,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 					if (!row) {
 						if (!warnedMiss) {
 							warnedMiss = true;
-							try { console.warn("[dsh-purge] TabRowPurgeMount: tab row anchor missing"); } catch { /* ignore */ }
+							try { console.warn("[dsh-stan] TabRowPurgeMount: tab row anchor missing"); } catch { /* ignore */ }
 						}
 						setHost((prev) => (prev ? null : prev));
 						return;
@@ -3878,7 +3878,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 			// 		t: ctx.locale.bind(NS),
 			// 	}),
 			// }, ContinueSafe));
-			ctx.effect(() => installRewindWatch(ctx), "dsh-purge: rewind watch");
+			ctx.effect(() => installRewindWatch(ctx), "dsh-stan: rewind watch");
 		}
 
 		// 普通 command 结果不会激活宿主的空会话；补上输入节点，让结果卡片可见。
@@ -3927,7 +3927,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 					name: "conversation.chat.node", key: "dsh-purge-command-input",
 				}, PurgeCommandInputView));
 			}
-			ctx.effect(() => ctx.locale.register(NS, { zh, en }), "dsh-purge: dictionaries");
+			ctx.effect(() => ctx.locale.register(NS, { zh, en }), "dsh-stan: dictionaries");
 			const t = ctx.locale.bind(NS);
 			translate = t;
 			ctx.slots.inject("shell.overlay", () => ctx.slots.register({
@@ -3947,7 +3947,7 @@ body[data-ds-dark-theme] .dshp-rewind-item span{color:var(--dsw-alias-label-tert
 						ctx.inject(["sessions", "uiWorkspace", "conversation"], (host) => installRewindUi(host));
 					}
 				} catch (e2) {
-					try { console.warn("[dsh-purge] rewind ui skipped:", e2 || e); } catch { /* ignore */ }
+					try { console.warn("[dsh-stan] rewind ui skipped:", e2 || e); } catch { /* ignore */ }
 				}
 			}
 		}

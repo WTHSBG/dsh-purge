@@ -1,3 +1,33 @@
+# 1.1.80
+
+## 中文
+
+- 版本 **1.1.80**。项目改名：`dsh-purge` → **`dsh-stan`**。包名、`bin` 命令、HTTP 路由前缀（`/dsh-stan/*`）、界面文案、仓库地址全部换新。
+- 升级路径：`ensure-profile-bundle.mjs` 会把 profile 里旧的 `dsh-purge` bundle 条目改写成 `dsh-stan`，并整块删掉旧的 `- insert:` 条目；`update.js` / `uninstall.js` 新旧包名双认，已装旧版的用户可以直接覆盖升级、也能正常卸载。
+- **磁盘契约保持不变**：`.dshpurge.bak` 备份后缀、宿主补丁里的 `[dsh-purge]` marker 字串、注入段名前缀 `dsh-purge*` / `dshpg-*`、运行时目录 `$DSH_HOME/dsh-purge/` 都原样保留——这些是升级兼容的锚点，改了会让已装用户回滚出错或重复打补丁。
+- `client.js` 的 localStorage 键（`dsh-purge-user-notice-v1`、`dsh-purge-dock-geom-v4`）与 `data-testid` 同样保留，用户的面板停靠位置和提示已读状态不会丢。
+
+## English
+
+- **1.1.80**. Renamed: `dsh-purge` → **`dsh-stan`**. Package name, `bin` command, HTTP route prefix (`/dsh-stan/*`), UI copy and repository URLs all switched over.
+- Upgrade path: `ensure-profile-bundle.mjs` rewrites an existing `dsh-purge` bundle entry to `dsh-stan` and drops the stale `- insert:` block outright; `update.js` and `uninstall.js` accept both names, so users on the old version can upgrade in place or uninstall cleanly.
+- **On-disk contracts are unchanged**: the `.dshpurge.bak` suffix, the `[dsh-purge]` marker string in host patches, the `dsh-purge*` / `dshpg-*` prompt-section prefixes, and the `$DSH_HOME/dsh-purge/` runtime directory all stay as they are — they are what keeps upgrades compatible, and changing them would break rollback or re-apply patches twice.
+- The `client.js` localStorage keys (`dsh-purge-user-notice-v1`, `dsh-purge-dock-geom-v4`) and `data-testid` values are kept too, so dock position and the notice-read flag survive.
+
+# 1.1.79
+
+## 中文
+
+- 版本 **1.1.79**。删除网络门禁：`lib/net-scope.js` 整块移除，`lib/index.js` 的 `applyHostHooks` 不再挂 `installRegionGate`。
+- 不再对目标 IP / 域名 / 公网做任何代码级判定，也不再挂 `agent/pre-step` / `tools/pre-execute` 门禁钩子；目标判定交回模型与宿主自身策略层。
+- 同时移除伪造 `role: assistant` 拒绝消息的落地路径（原 `parkDenial`），不会再出现"模型自己突然硬拒"的假消息污染会话。
+
+## English
+
+- **1.1.79**. Network gate removed: `lib/net-scope.js` deleted outright, and `applyHostHooks` in `lib/index.js` no longer installs `installRegionGate`.
+- No code-level judgement of target IP / domain / public reachability any more, and no `agent/pre-step` / `tools/pre-execute` gate hooks. Target judgement goes back to the model and the host's own policy layer.
+- The path that forged a `role: assistant` denial message (`parkDenial`) is gone with it, so a fake "the model refused on its own" message can no longer pollute a session.
+
 # 1.1.78
 
 ## 中文

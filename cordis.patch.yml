@@ -1,9 +1,9 @@
-# dsh-purge bundle patch
+# dsh-stan bundle patch
 #
 # 本 fork 只发布「清洗/破甲」这一半：提示词注入 + 宿主补丁。
 # 演练台/红队评估（渗透测试）已于 2026-10-25 功能收敛移除，
 # lib/redteam、presets/redteam、skills/redteam 都不再随包发布。
-# 只装 dsh-purge，不外接、不 link 其它红队包。
+# 只装 dsh-stan，不外接、不 link 其它红队包。
 
 - id: system-prompt
   config:
@@ -13,7 +13,7 @@
 
 # 本体 insert 写在用户层 profile/cordis.patch.yml（postinstall 补）。
 # 这里只改已入队条目的 inject/config。再 insert 一次会 already queued（#152 / #154）。
-- id: dsh-purge
+- id: dsh-stan
   inject: [systemPrompt, tools]
   config:
     enabled: true

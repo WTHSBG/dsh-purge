@@ -1,4 +1,4 @@
-# dsh-purge（破甲 / 清洗）
+# dsh-stan（破甲 / 清洗）
 
 中文 | [English](README.md)
 
@@ -9,7 +9,7 @@
 - 本 fork 不含演练台、红队评估、渗透测试相关功能。
 
 > Fork 自 [YuJunZhiXue/dsh-purge](https://github.com/YuJunZhiXue/dsh-purge)，维护在
-> [WTHSBG/dsh-purge](https://github.com/WTHSBG/dsh-purge)。Apache-2.0；原版不得转卖，
+> [WTHSBG/dsh-stan](https://github.com/WTHSBG/dsh-stan)。Apache-2.0；原版不得转卖，
 > 二开必须署名（见 [FORK-NOTICE.md](FORK-NOTICE.md)）。
 
 ## 适配
@@ -21,36 +21,36 @@
 
 ```sh
 # 装进正在用的 profile（桌面端把 web 换成 desktop）
-dsh plugin --profile web add https://codeload.github.com/WTHSBG/dsh-purge/tar.gz/refs/heads/dev
+dsh plugin --profile web add https://codeload.github.com/WTHSBG/dsh-stan/tar.gz/refs/heads/dev
 ```
 
 只有 pnpm 时（进 profile 目录，不要在仓库根执行）：
 
 ```sh
 cd "$DSH_HOME/profiles/web"
-pnpm add https://codeload.github.com/WTHSBG/dsh-purge/tar.gz/refs/heads/dev
+pnpm add https://codeload.github.com/WTHSBG/dsh-stan/tar.gz/refs/heads/dev
 ```
 
 pnpm 拦安装脚本（`ERR_PNPM_IGNORED_BUILDS`）或用了 `--ignore-scripts`，补跑：
 
 ```sh
-node node_modules/dsh-purge/scripts/ensure-profile-bundle.mjs
+node node_modules/dsh-stan/scripts/ensure-profile-bundle.mjs
 ```
 
 1. 完全退出并重开宿主（桌面端托盘也要退）。
-2. 会话标题旁点 **dsh-purge** →「清洗」→ **应用**，成功后自动重启一次。
+2. 会话标题旁点 **dsh-stan** →「清洗」→ **应用**，成功后自动重启一次。
 3. 验证：聊天里 `/purge status` 能打出 `DSH_HOME` 和补丁列表。
 
-不要走插件市场（会报 `already queued: dsh-purge`）；npm 仓库没有这个包名。
+不要走插件市场（会报 `already queued: dsh-stan`）；npm 仓库没有这个包名。
 
 ## 使用
 
 ```sh
-dsh-purge --status      # 概览
-dsh-purge --apply       # 应用全部补丁
-dsh-purge --revert      # 还原
-dsh-purge --uninstall   # 卸载
-dsh-purge --edit        # 编辑 prompt-inject.md
+dsh-stan --status      # 概览
+dsh-stan --apply       # 应用全部补丁
+dsh-stan --revert      # 还原
+dsh-stan --uninstall   # 卸载
+dsh-stan --edit        # 编辑 prompt-inject.md
 
 /purge status | apply | revert | uninstall | edit | help
 /rules list | use <id> | create <id> | delete <id> | reset
@@ -63,16 +63,16 @@ dsh-purge --edit        # 编辑 prompt-inject.md
 
 ## 原理与文件
 
-- L1 注入提示词 → L2 每轮改写 system prompt → L3 打补丁改宿主文件（首次写入前备份 `*.dshpurge.bak`，重复应用幂等）→ L4 本地网络门禁。
+- L1 注入提示词 → L2 每轮改写 system prompt → L3 打补丁改宿主文件（首次写入前备份 `*.dshpurge.bak`，重复应用幂等）。
 - 运行时文件在 `$DSH_HOME`：`prompt-inject.md`、`rules/`、`dsh-purge/`；`DSH_HOME` 未设时按启动器旁 `.dsh` → `~/.dsh`。
-- **本地网络门禁**：公网目标上的攻击类任务、游戏外挂类任务直接拦；工具参数含非本机 / 非 RFC1918 主机时拒绝；回环与私网放行，域名先解析再判 IP，不认 `.lab` 之类后缀。
+- 插件不再做任何网络 / 域名 / IP 层面的拦截：目标判定交回模型与宿主自身的策略层，插件只负责提示词与实际执行的补丁。
 - 机制笔记见 [docs/fork/](docs/fork/)。
 
 ## 还原 / 卸载 / 更新
 
 ```sh
-dsh-purge --revert
-dsh-purge --uninstall
+dsh-stan --revert
+dsh-stan --uninstall
 ```
 
 更新：重新执行上面的安装命令，或面板里「检查更新 / 切换版本」（跟随本 fork 的 `dev` 分支；本 fork 没有 beta 通道）。

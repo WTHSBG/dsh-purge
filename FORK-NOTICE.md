@@ -1,7 +1,7 @@
 # Fork notice / 分支声明
 
 本仓库是 [YuJunZhiXue/dsh-purge](https://github.com/YuJunZhiXue/dsh-purge) 的 fork，维护地址：
-<https://github.com/WTHSBG/dsh-purge>
+<https://github.com/WTHSBG/dsh-stan>
 
 ## 来源与版本
 
@@ -12,6 +12,12 @@
 | 基线版本 | v1.1.78（`dshTarget: 0.2.1-rc.2`） |
 | 基线日期 | 2026-10-24 |
 | 许可证 | Apache-2.0，`LICENSE` 与 `NOTICE` 原样保留 |
+| 本 fork 改名 | 2026-10-25 起对外名 `dsh-stan`（原 `dsh-purge`） |
+
+> **改名说明**：包名、CLI、路由前缀、界面文案都换成 `dsh-stan`。以下三样**保持
+> `dsh-purge` 不变**，它们是磁盘与宿主侧契约，改了会让已装用户升级后崩：
+> `.dshpurge.bak` 备份后缀、宿主补丁里的 `[dsh-purge]` marker 字串、
+> 注入段名前缀 `dsh-purge*`/`dshpg-*`，以及运行时目录 `$DSH_HOME/dsh-purge/`。
 
 ## 上游作者的约束（摘要）
 
@@ -25,7 +31,7 @@
 ## 本地 remote 约定
 
 ```
-origin    git@github.com:WTHSBG/dsh-purge.git        # 本 fork
+origin    git@github.com:WTHSBG/dsh-stan.git         # 本 fork
 upstream  git@github.com:YuJunZhiXue/dsh-purge.git   # 原始仓库
 ```
 

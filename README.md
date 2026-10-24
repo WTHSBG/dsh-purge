@@ -1,4 +1,4 @@
-# dsh-purge (jailbreak / cleaning)
+# dsh-stan (jailbreak / cleaning)
 
 English | [中文](README.zh-CN.md)
 
@@ -11,7 +11,7 @@ A prompt-injection / host-patch plugin for the official
 - This fork has no drill console, red-team evaluation or penetration-testing features.
 
 > Fork of [YuJunZhiXue/dsh-purge](https://github.com/YuJunZhiXue/dsh-purge), maintained at
-> [WTHSBG/dsh-purge](https://github.com/WTHSBG/dsh-purge). Apache-2.0; the upstream original may not
+> [WTHSBG/dsh-stan](https://github.com/WTHSBG/dsh-stan). Apache-2.0; the upstream original may not
 > be resold and forks must attribute (see [FORK-NOTICE.md](FORK-NOTICE.md)).
 
 ## Supported hosts
@@ -24,37 +24,37 @@ A prompt-injection / host-patch plugin for the official
 
 ```sh
 # into the profile you are running (desktop: replace web with desktop)
-dsh plugin --profile web add https://codeload.github.com/WTHSBG/dsh-purge/tar.gz/refs/heads/dev
+dsh plugin --profile web add https://codeload.github.com/WTHSBG/dsh-stan/tar.gz/refs/heads/dev
 ```
 
 pnpm only (run inside the profile directory, not in the repo root):
 
 ```sh
 cd "$DSH_HOME/profiles/web"
-pnpm add https://codeload.github.com/WTHSBG/dsh-purge/tar.gz/refs/heads/dev
+pnpm add https://codeload.github.com/WTHSBG/dsh-stan/tar.gz/refs/heads/dev
 ```
 
 If pnpm blocks install scripts (`ERR_PNPM_IGNORED_BUILDS`) or you used `--ignore-scripts`, run:
 
 ```sh
-node node_modules/dsh-purge/scripts/ensure-profile-bundle.mjs
+node node_modules/dsh-stan/scripts/ensure-profile-bundle.mjs
 ```
 
 1. Fully quit and reopen the host (desktop: quit from the tray too).
-2. Click **dsh-purge** beside the session title → **Clean** → **Apply**; it restarts once on success.
+2. Click **dsh-stan** beside the session title → **Clean** → **Apply**; it restarts once on success.
 3. Check with `/purge status` in chat: it prints `DSH_HOME` and the patch list.
 
-Do not use the plugin market (it reports `already queued: dsh-purge`); the npm registry does not
+Do not use the plugin market (it reports `already queued: dsh-stan`); the npm registry does not
 carry this package name.
 
 ## Usage
 
 ```sh
-dsh-purge --status      # overview
-dsh-purge --apply       # apply all patches
-dsh-purge --revert      # restore
-dsh-purge --uninstall   # uninstall
-dsh-purge --edit        # edit prompt-inject.md
+dsh-stan --status      # overview
+dsh-stan --apply       # apply all patches
+dsh-stan --revert      # restore
+dsh-stan --uninstall   # uninstall
+dsh-stan --edit        # edit prompt-inject.md
 
 /purge status | apply | revert | uninstall | edit | help
 /rules list | use <id> | create <id> | delete <id> | reset
@@ -69,19 +69,18 @@ dsh-purge --edit        # edit prompt-inject.md
 ## How it works
 
 - L1 injected prompt → L2 system-prompt rewrite every turn → L3 host file patches (first write is
-  backed up to `*.dshpurge.bak`, repeated applies are idempotent) → L4 local network gate.
+  backed up to `*.dshpurge.bak`, repeated applies are idempotent).
 - Runtime files live under `$DSH_HOME`: `prompt-inject.md`, `rules/`, `dsh-purge/`; if `DSH_HOME` is
   unset, `.dsh` beside the launcher wins over `~/.dsh`.
-- **Local network gate**: attack-class tasks aimed at public hosts and game-cheat tasks are blocked;
-  tool arguments mentioning a non-local / non-RFC1918 host are refused; loopback and private targets
-  pass after DNS resolution (suffixes such as `.lab` are not trusted).
+- The plugin performs no network, domain, or IP-level interception. Target judgement is left to the
+  model and the host's own policy layer; the plugin only supplies the prompt and the patches it applies.
 - Engineering notes live in [docs/fork/](docs/fork/).
 
 ## Restore / uninstall / update
 
 ```sh
-dsh-purge --revert
-dsh-purge --uninstall
+dsh-stan --revert
+dsh-stan --uninstall
 ```
 
 Update: re-run the install command above, or use "Check for updates / Switch version" in the panel
