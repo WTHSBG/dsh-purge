@@ -78,6 +78,13 @@ function ensureProfileInsert(profileDir) {
     process.stdout.write(`dsh-purge: insert already in ${fp}\n`);
     return false;
   }
+  // 新 profile 的 patch 文件模板是「注释 + 独立一行 `[]`」的空文档。
+  // 直接追加 `- insert:` 会变成「流式空序列后再接块序列」，YAML 解析报
+  // "end of the stream or a document separator is expected"，宿主起不来。
+  // 先去掉独立的 `[]` 行（保留注释），再追加 insert 块。
+  if (/^[ \t]*\[\][ \t]*$/m.test(text)) {
+    text = text.replace(/^[ \t]*\[\][ \t]*\r?\n?/m, "");
+  }
   const prefix = text && !text.endsWith("\n") ? "\n" : "";
   fs.writeFileSync(fp, `${text}${prefix}${text ? "\n" : ""}${INSERT_BLOCK}`, "utf8");
   process.stdout.write(`dsh-purge: wrote body insert (${fp})\n`);

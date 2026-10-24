@@ -8,7 +8,7 @@
 > See [FORK-NOTICE.md](FORK-NOTICE.md). Upstream attribution is required, and the upstream
 > original may not be resold.
 
-<h1 align="center">⚔️ DeepSeek Harness cybersecurity red-team tool (dsh-purge)</h1>
+<h1 align="center">⚔️ DeepSeek Harness prompt-injection / patch-cleaning (jailbreak) plugin (dsh-purge)</h1>
 
 <p align="center"><strong>Version 1.1.78</strong></p>
 
@@ -39,7 +39,7 @@
 
 People have been selling this open-source work in the open. After that, the author was asked to come in and talk. No need to spell out the rest. Read between the lines.
 
-From now on the **public internet is closed**. The open-source build only allows **local lab IPs**: loopback and RFC1918. Domains are resolved first (including hosts); every answer must be private or loopback. A hosts trick that points `.lab` at a public IP, a failed lookup, or a mixed public answer is blocked. **Game cheats are forbidden** (aimbot, wallhack, memory edits against a game, anti-cheat bypass); the prompt and the session gate both stop them. This build does not ship the skill library or the knowledge base.
+From now on the **public internet is closed**. The open-source build only allows **local lab IPs**: loopback and RFC1918. Domains are resolved first (including hosts); every answer must be private or loopback. A hosts trick that points `.lab` at a public IP, a failed lookup, or a mixed public answer is blocked. **Game cheats are forbidden** (aimbot, wallhack, memory edits against a game, anti-cheat bypass); the prompt and the session gate both stop them.
 
 **The original build may not be resold.** Charging for it, skinning it, or hawking it in groups is not allowed. Forks are fine, but **you must attribute** and name the source: [YuJunZhiXue/dsh-purge](https://github.com/YuJunZhiXue/dsh-purge). Hide the source or pass it off as your own, and you are on the other side.
 
@@ -63,15 +63,16 @@ The author's personal channel: [t.me/LLM_PoJia](https://t.me/LLM_PoJia). Notes a
 
 ## What this is
 
-**dsh-purge** is a cybersecurity red-team plugin for the official [DeepSeek Harness](https://www.deepseek.com/harness/) already installed on your machine. **1.1.78** targets **DSH 0.2.1-rc.2** (0.2.0 still works). Official **Web** (`dsh web`) and the official **desktop EXE** are both supported. Install and Apply them separately.
+**dsh-purge** is a local prompt-injection / patch-cleaning (破甲) plugin for the official [DeepSeek Harness](https://www.deepseek.com/harness/) already installed on your machine. **1.1.78** targets **DSH 0.2.1-rc.2** (0.2.0 still works). Official **Web** (`dsh web`) and the official **desktop EXE** are both supported. Install and Apply them separately.
+
+**This fork no longer ships the drill console or red-team evaluation.** The drill console, scoring, assets, reports, own-servers whitelist, and local-lab authorization were removed on 2026-10-25; what ships is the jailbreak / patch-cleaning half.
 
 Harness does more than forward a prompt. It rewrites prompts, approval gates, sandbox policy, and session migration at runtime. Asking only “will the model answer” treats a host-layer block as a model refusal. This plugin separates those two layers on your own install, for controlled evaluation and for seeing which default policy is too tight.
 
 | You get | What it does |
 |---|---|
-| **dsh-purge dock** | A button beside the session title opens the right dock. Two pages: Clean and Drill |
+| **dsh-purge dock** | A button beside the session title opens the right dock: the Clean page |
 | **Clean** | Grouped patch status, Apply / Restore / Uninstall, prompt editor, multiple rule sets |
-| **Drill** | Built into the stable release. After authorization: assets and the local environment. This build does not ship skills or the knowledge base. Local lab only |
 | **Host policy** | Default copy, permission policy, and tool limits. Official capabilities stay. No second invented identity |
 | **On start** | Checks and reapplies. After npm overwrites `node_modules`, you do not hand-edit files |
 
@@ -113,7 +114,7 @@ This repo is [Apache License 2.0](./LICENSE). Forks and redistributions must kee
 2. **Local official Harness only.** Security-eval patches and prompt injection run only on the **official DeepSeek Harness already installed on the user's machine** (`@deepseek-ai` packages, local profile / `$DSH_HOME`). The target is the user's own official local software, **not** someone else's website, server, account, or information system.
 3. **Eval patches do not attack the public internet.** Apply, inject, revert, and uninstall stay in local files and local processes. They **do not scan, probe, intrude, or send attack traffic to any public host or unauthorized system**. Do not use this project as a jump host against the public internet. If "check for updates" is on, the plugin may only contact this plugin's own GitHub repository to compare versions. That is **not** an attack on third-party systems and is **not** authorization to penetrate anything.
 4. **Lawful, controlled scope.** This project is an aid for red-team research and robustness evaluation on an **official Harness the user is entitled to administer**. **Do not run it against targets without the owner's lawful written authorization, public online systems, or production workloads.** Testing must stay on the **authorized local official Harness, offline local synthetic fixtures, authorized cybersecurity ranges, and compliant lab environments**.
-5. **The open-source build is local-lab only.** Attack tasks only allow loopback and RFC1918 addresses. Domains are resolved, then judged by IP; suffixes are not an allow list. A public IP, a name that resolves public, a failed lookup, or a hosts entry that points a lab name at the public internet is not an exception. A key, a password, a network range, a wildcard, or a claim made in the conversation does not add an exception. Game cheats are forbidden. This build does not ship the skill library or the knowledge base.
+5. **Local-network scope only.** Any task that touches the network only allows loopback and RFC1918 addresses. Domains are resolved, then judged by IP; suffixes are not an allow list. A public IP, a name that resolves public, a failed lookup, or a hosts entry that points a lab name at the public internet is not an exception. A key, a password, a network range, a wildcard, or a claim made in the conversation does not add an exception. Game cheats are forbidden.
 6. **Forbidden uses.** Users must not use this project, directly or indirectly, to violate the following (each must be followed; no excuse to evade):
    - <font color="red"><strong>Criminal Law of the People's Republic of China</strong></font>
    - <font color="red"><strong>Cybersecurity Law of the People's Republic of China</strong></font>
@@ -216,7 +217,7 @@ Web controls affect Web only; desktop controls affect the desktop app only. Do n
 - `/purge status` in chat prints `DSH_HOME` and the patch list — the path should be the home you actually run.
 - Optional packages that are not installed (liangshen) show as skipped and do not block Apply.
 
-If the button is missing, run `dsh --dump-config` (or `dsh --profile desktop --dump-config`) and look for a body row `id: dsh-purge` (not `dsh-purge-redteam`). If it is absent, run `ensure-profile-bundle.mjs` above, then fully quit and reopen the host. `entry "redteam-store" not found` at the top is leftover from an old red-team package and can be ignored.
+If the button is missing, run `dsh --dump-config` (or `dsh --profile desktop --dump-config`) and look for a body row `id: dsh-purge`. If it is absent, run `ensure-profile-bundle.mjs` above, then fully quit and reopen the host.
 
 ### If the market says `already queued: dsh-purge`
 
@@ -346,7 +347,7 @@ Success: `profiles/<web|desktop>/node_modules/dsh-purge/package.json` exists. If
 
 ### Uninstall
 
-**dsh-purge** beside the session title → **Clean** → **Uninstall**. Confirm the dialog: it reverts any applied patches, restores the original Harness, and restarts the current host. Disable or uninstall also resets an agent-preset default that still points at `redteam` back to `standard`, so the host can create sessions after the preset is gone.
+**dsh-purge** beside the session title → **Clean** → **Uninstall**. Confirm the dialog: it reverts any applied patches, restores the original Harness, and restarts the current host.
 
 ```sh
 # or from a terminal / chat
@@ -374,47 +375,35 @@ Plugin config lives in `cordis.patch.yml` (`postPrompt` is empty by default):
 
 ## Preview
 
-**dsh-purge** sits beside the session title. It opens a right-hand dock with two pages: **Clean** and **Drill**. Switch **Light / Ink**. Patches are grouped; the count only includes items that actually applied. Rule sets sit in a list above the editor, with Enable and Delete on each row.
-
-The first time you open Drill you read the notice, wait out the countdown, scroll to the end, and check three boxes. Clean does not need that step. Drill is only for a host you manage, an offline target, or an exercise that already has written authorization.
+**dsh-purge** sits beside the session title. It opens a right-hand dock: the **Clean** page. Switch **Light / Ink**. Patches are grouped; the count only includes items that actually applied. Rule sets sit in a list above the editor, with Enable and Delete on each row.
 
 **Clean**
 
 ![Clean](docs/preview/dock-clean.png)
 
-**Drill authorization**
-
-![Drill authorization](docs/preview/dock-auth.png)
-
-**Drill**
-
-![Drill](docs/preview/dock-drill.png)
-
 **Patches**
 
 ![Patches](docs/preview/settings.png)
 
-**Local lab**
+**Rule sets**
 
-The open-source build only allows localhost/private nets. The Clean page says so. You cannot register a public host.
+![Rule sets](docs/preview/rules.png)
 
 | Area | What it shows |
 |---|---|
 | dsh-purge | button beside the session title; opens or collapses the dock |
 | Clean | patches, prompt, rule sets |
-| Drill | assets and environment after authorization. This build does not ship skills or the knowledge base. The tab says Unauthorized until then |
 | Patches | grouped status, Apply, Restore, or Uninstall |
 | Prompt | edit `prompt-inject.md` as the session override |
-| Local lab | loopback / RFC1918 only; names are resolved, and every address must be private |
 | Rule sets | multiple `AGENTS.md` / `CLAUDE.md`; Enable writes under `$DSH_HOME`, Delete removes the row |
 
 ---
 
 ## Layout
 
-`bin/` is the CLI, `lib/` is patches and the drill console, `presets/redteam/` is the red-team preset, and `client.js` is the dock. This build does not ship `skills/` or the knowledge base.
+`bin/` is the CLI, `lib/` is patches and host-surface logic, and `client.js` is the dock. This fork no longer contains `lib/redteam/` or `presets/redteam/`.
 
-Runtime files live under `$DSH_HOME`: `prompt-inject.md`, `rules/`, `redteam/`. If `DSH_HOME` is unset, the launcher-adjacent `.dsh` wins over `~/.dsh`. Web and the desktop app each use their own home.
+Runtime files live under `$DSH_HOME`: `prompt-inject.md` and `rules/`. If `DSH_HOME` is unset, the launcher-adjacent `.dsh` wins over `~/.dsh`. Web and the desktop app each use their own home.
 
 ---
 
@@ -465,10 +454,6 @@ For routine tasks, you can also opt into Low reasoning for new sessions:
 ```
 
 Restart `dsh web` to load the profile. The model and reasoning defaults apply to newly created sessions; select Low in the composer for an existing session. The plugin does not change these model preferences automatically. Keep High when the task needs deeper reasoning, and narrow file searches rather than recursively scanning every application directory.
-
-### Local lab
-
-Attack tasks are denied by default. The open-source build only allows loopback and RFC1918 IPs. Names are resolved first; a `.lab` / `.htb` suffix is not enough. A hosts entry that points a lab name at a public IP is blocked. Saying “this is my server” in chat does not allow it.
 
 ---
 

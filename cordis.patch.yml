@@ -1,28 +1,9 @@
 # dsh-purge bundle patch
 #
-# 清洗 + 演练台都在本插件内（lib/redteam、presets/redteam、skills/redteam）。
+# 本 fork 只发布「清洗/破甲」这一半：提示词注入 + 宿主补丁。
+# 演练台/红队评估（渗透测试）已于 2026-10-25 功能收敛移除，
+# lib/redteam、presets/redteam、skills/redteam 都不再随包发布。
 # 只装 dsh-purge，不外接、不 link 其它红队包。
-
-# 关掉旧的独立红队包行（若用户以前装过 dsh-redteam-mode）
-- id: redteam-store
-  name: dsh-redteam-store
-  disabled: true
-
-- id: redteam-ui
-  name: dsh-redteam-ui
-  disabled: true
-
-- id: redteam-mode
-  name: dsh-redteam-mode
-  disabled: true
-
-- id: redteam-mode-store
-  name: dsh-redteam-mode/store
-  disabled: true
-
-- id: redteam-mode-ui
-  name: dsh-redteam-mode/ui
-  disabled: true
 
 - id: system-prompt
   config:
@@ -51,18 +32,3 @@
     continueText: "继续"
     capabilityProtocol: true
     hooksDenyBypass: true
-
-- insert:
-    # 演练台：预设 + 技能落地（本插件 lib/redteam）
-    - id: dsh-purge-redteam
-      name: dsh-purge/redteam
-
-    # 演练台事实库（SQLite），数据在 $DSH_HOME/redteam
-    - id: dsh-purge-redteam-store
-      name: dsh-purge/redteam/store
-      config:
-        root: !!js dshHomePath('redteam')
-
-    # 演练台 HTTP 桥 POST /redteam/api
-    - id: dsh-purge-redteam-ui
-      name: dsh-purge/redteam/ui

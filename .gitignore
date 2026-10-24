@@ -13,7 +13,6 @@ docs/agents/
 scripts/tmp-*.mjs
 scripts/test-*.mjs
 .scratch/
-dsh-redteam-mode-main/
 /1
 
 # 外部参考，不是本插件

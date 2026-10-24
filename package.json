@@ -9,10 +9,6 @@
       "default": "./lib/index.js"
     },
     "./client": "./client.js",
-    "./redteam": "./lib/redteam/index.js",
-    "./redteam/store": "./lib/redteam/store.js",
-    "./redteam/ui": "./lib/redteam/ui.js",
-    "./redteam/tools": "./lib/redteam/tools.js",
     "./package.json": "./package.json"
   },
   "bin": {
@@ -23,7 +19,6 @@
     "!lib/default-prompt-inject.md",
     "bin",
     "docs",
-    "presets",
     "scripts",
     "client.js",
     "cordis.patch.yml",
@@ -35,7 +30,6 @@
   ],
   "scripts": {
     "embed-prompt": "node scripts/embed-default-prompt.mjs",
-    "build:client": "node scripts/build-client.mjs",
     "audit:patches": "node scripts/audit-patches.mjs",
     "postinstall": "node scripts/ensure-profile-bundle.mjs"
   },
@@ -45,11 +39,9 @@
     "dsh-plugin",
     "dsh-plugins",
     "网络安全",
-    "红队评测",
     "llm-security",
     "harness-security",
     "deepseek-harness",
-    "red-team",
     "instructions",
     "rules",
     "prompt-eval",
