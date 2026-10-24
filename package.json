@@ -17,15 +17,14 @@
   "files": [
     "lib",
     "!lib/default-prompt-inject.md",
+    "!lib/*.md.bak",
     "bin",
     "docs",
     "scripts",
     "client.js",
     "cordis.patch.yml",
-    "README.md",
-    "README.zh-CN.md",
+    "FORK-NOTICE.md",
     "release-notes.md",
-    "LICENSE",
     "NOTICE"
   ],
   "scripts": {
