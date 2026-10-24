@@ -29,14 +29,17 @@ origin    git@github.com:WTHSBG/dsh-purge.git        # 本 fork
 upstream  git@github.com:YuJunZhiXue/dsh-purge.git   # 原始仓库
 ```
 
-工作分支：`dev`（`master` 保持与 upstream 同步，仅用于拉取上游更新）。
+工作分支：`dev`。2026-10-25 起 `master` 与 `dev` 指向同一提交（快进，不再保持 upstream
+纯净镜像；GitHub 默认分支仍为 `dev`）。
 
-同步上游：
+同步上游（upstream 仅作来源，本 fork 已主动移除演练台）：把 upstream 合进 `dev`，
+解决冲突时保持「只保留破甲/清洗」的方向，然后让 `master` 快进到 `dev`：
 
 ```bash
 git fetch upstream
-git checkout master && git merge --ff-only upstream/master
-git checkout dev && git rebase master
+git checkout dev && git merge upstream/master
+git checkout master && git merge --ff-only dev
+git push origin dev master
 ```
 
 ## 使用范围
