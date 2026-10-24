@@ -2,6 +2,11 @@
   <img src="docs/banner.svg" alt="dsh-purge" width="720">
 </p>
 
+> **Fork 声明** — 本仓库是
+> [YuJunZhiXue/dsh-purge](https://github.com/YuJunZhiXue/dsh-purge) 的 fork，维护地址
+> [WTHSBG/dsh-purge](https://github.com/WTHSBG/dsh-purge)，仅用于本地研究与工程开发。
+> 详见 [FORK-NOTICE.md](FORK-NOTICE.md)。上游署名要求保留，原版不得转卖。
+
 <h1 align="center">⚔️ DeepSeek Harness 网络安全红队工具（dsh-purge）</h1>
 
 <p align="center"><strong>Version 1.1.78</strong></p>

@@ -2,6 +2,12 @@
   <img src="docs/banner.svg" alt="dsh-purge" width="720">
 </p>
 
+> **Fork notice** — This repository is a fork of
+> [YuJunZhiXue/dsh-purge](https://github.com/YuJunZhiXue/dsh-purge), maintained at
+> [WTHSBG/dsh-purge](https://github.com/WTHSBG/dsh-purge) for local research and engineering.
+> See [FORK-NOTICE.md](FORK-NOTICE.md). Upstream attribution is required, and the upstream
+> original may not be resold.
+
 <h1 align="center">⚔️ DeepSeek Harness cybersecurity red-team tool (dsh-purge)</h1>
 
 <p align="center"><strong>Version 1.1.78</strong></p>
