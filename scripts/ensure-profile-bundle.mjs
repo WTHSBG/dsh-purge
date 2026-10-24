@@ -220,5 +220,21 @@ function main() {
   }
 }
 
-const invoked = process.argv[1] ? path.resolve(process.argv[1]) : "";
-if (invoked === fileURLToPath(import.meta.url)) main();
+/**
+ * 入口判定必须比 realpath。node_modules/dsh-stan 是符号链接（pnpm link / workspace link /
+ * 本地 `pnpm add <path>` 都会这样），此时 argv[1] 保持软链路径，而 import.meta.url 已被
+ * Node 解析成真实路径，直接比较永远不相等 —— postinstall 会静默什么都不做。
+ */
+function isEntrypoint() {
+  const invoked = process.argv[1] ? path.resolve(process.argv[1]) : "";
+  if (!invoked) return false;
+  const self = fileURLToPath(import.meta.url);
+  if (invoked === self) return true;
+  try {
+    return fs.realpathSync(invoked) === fs.realpathSync(self);
+  } catch {
+    return false;
+  }
+}
+
+if (isEntrypoint()) main();
